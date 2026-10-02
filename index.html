@@ -4,31 +4,249 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Dein Bibelvers</title>
+
+  <style>
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background: #f5efe5;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      color: #4a3b32;
+    }
+
+    .box {
+      max-width: 600px;
+      margin: 20px;
+      padding: 35px 25px;
+      background: white;
+      border-radius: 20px;
+      box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+    }
+
+    h1 {
+      font-size: 28px;
+      margin-bottom: 25px;
+    }
+
+    #vers {
+      font-size: 23px;
+      line-height: 1.6;
+      margin-bottom: 20px;
+    }
+
+    #stelle {
+      font-size: 17px;
+      font-weight: bold;
+      margin-bottom: 25px;
+    }
+
+    button {
+      border: none;
+      padding: 13px 22px;
+      border-radius: 10px;
+      background: #8c6f5a;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background: #705744;
+    }
+  </style>
 </head>
+
 <body>
-  <h1>Dein Bibelvers für heute</h1>
 
-  <p id="vers"></p>
+  <div class="box">
+    <h1>✨ Dein Bibelvers für heute ✨</h1>
 
-  <button onclick="neuerVers()">Neuen Bibelvers anzeigen</button>
+    <div id="vers"></div>
+    <div id="stelle"></div>
+
+    <button onclick="neuerVers()">Neuen Vers anzeigen</button>
+  </div>
 
   <script>
+
     const verse = [
-      "Der Herr ist mein Hirte; mir wird nichts mangeln. – Psalm 23,1",
-      "Ich vermag alles durch den, der mich mächtig macht. – Philipper 4,13",
-      "Fürchte dich nicht, denn ich bin mit dir. – Jesaja 41,10",
-      "Alle eure Sorge werft auf ihn; denn er sorgt für euch. – 1. Petrus 5,7",
-      "Denn bei Gott ist kein Ding unmöglich. – Lukas 1,37",
-      "Der Herr segne dich und behüte dich. – 4. Mose 6,24",
-      "Seid fröhlich in Hoffnung, geduldig in Trübsal, beharrlich im Gebet. – Römer 12,12"
+
+      ["Fürchte dich nicht, denn ich bin mit dir; hab keine Angst, denn ich bin dein Gott. Ich stärke dich, ich helfe dir auch.", "Jesaja 41,10"],
+
+      ["Der HERR ist mein Hirte, mir wird nichts mangeln.", "Psalm 23,1"],
+
+      ["Alle eure Sorge werft auf ihn; denn er sorgt für euch.", "1. Petrus 5,7"],
+
+      ["Ich vermag alles durch den, der mich mächtig macht.", "Philipper 4,13"],
+
+      ["Der HERR ist nahe allen, die ihn anrufen.", "Psalm 145,18"],
+
+      ["Sei stark und mutig! Fürchte dich nicht und hab keine Angst, denn der HERR, dein Gott, ist mit dir überall, wohin du gehst.", "Josua 1,9"],
+
+      ["Denn bei Gott ist kein Ding unmöglich.", "Lukas 1,37"],
+
+      ["Der HERR segne dich und behüte dich.", "4. Mose 6,24"],
+
+      ["Der HERR lasse sein Angesicht über dir leuchten und sei dir gnädig.", "4. Mose 6,25"],
+
+      ["Der HERR erhebe sein Angesicht auf dich und gebe dir Frieden.", "4. Mose 6,26"],
+
+      ["Ich bin bei euch alle Tage bis an das Ende der Welt.", "Matthäus 28,20"],
+
+      ["Kommt her zu mir, alle, die ihr mühselig und beladen seid; ich will euch erquicken.", "Matthäus 11,28"],
+
+      ["Denn er hat seinen Engeln befohlen, dass sie dich behüten auf allen deinen Wegen.", "Psalm 91,11"],
+
+      ["Du bist bei mir; dein Stecken und Stab trösten mich.", "Psalm 23,4"],
+
+      ["Der HERR ist meine Stärke und mein Schild; auf ihn vertraut mein Herz.", "Psalm 28,7"],
+
+      ["Der HERR ist mein Licht und mein Heil; vor wem sollte ich mich fürchten?", "Psalm 27,1"],
+
+      ["Befiehl dem HERRN deine Wege und hoffe auf ihn; er wird's wohl machen.", "Psalm 37,5"],
+
+      ["Vertraue auf den HERRN von ganzem Herzen und verlass dich nicht auf deinen Verstand.", "Sprüche 3,5"],
+
+      ["Erkenne ihn auf allen deinen Wegen, so wird er deine Pfade ebnen.", "Sprüche 3,6"],
+
+      ["Ein fröhliches Herz macht das Leben froh.", "Sprüche 17,22"],
+
+      ["Dies ist der Tag, den der HERR macht; lasst uns freuen und fröhlich an ihm sein.", "Psalm 118,24"],
+
+      ["Danket dem HERRN, denn er ist freundlich, und seine Güte währet ewiglich.", "Psalm 107,1"],
+
+      ["Schmecket und sehet, wie freundlich der HERR ist. Wohl dem, der auf ihn trauet!", "Psalm 34,9"],
+
+      ["Der HERR ist gut zu denen, die auf ihn hoffen, zu der Seele, die nach ihm fragt.", "Klagelieder 3,25"],
+
+      ["Denn ich weiß wohl, was ich für Gedanken über euch habe, spricht der HERR: Gedanken des Friedens und nicht des Leides.", "Jeremia 29,11"],
+
+      ["Rufe mich an, so will ich dir antworten und dir kundtun große und unfassbare Dinge.", "Jeremia 33,3"],
+
+      ["Ich habe dich je und je geliebt; darum habe ich dich zu mir gezogen aus lauter Güte.", "Jeremia 31,3"],
+
+      ["Fürchte dich nicht, denn ich habe dich erlöst; ich habe dich bei deinem Namen gerufen; du bist mein!", "Jesaja 43,1"],
+
+      ["Wenn du durch Wasser gehst, will ich bei dir sein.", "Jesaja 43,2"],
+
+      ["Siehe, ich bin mit dir und will dich behüten, wo du auch hinziehst.", "1. Mose 28,15"],
+
+      ["Der HERR wird für euch streiten, und ihr werdet stille sein.", "2. Mose 14,14"],
+
+      ["Der HERR wird seinen Engel vor dir her senden.", "1. Mose 24,7"],
+
+      ["Der HERR ist meine Kraft und mein Psalm und ist mein Heil.", "Psalm 118,14"],
+
+      ["Gott ist unsre Zuversicht und Stärke, eine Hilfe in den großen Nöten, die uns getroffen haben.", "Psalm 46,2"],
+
+      ["Seid stille und erkennet, dass ich Gott bin!", "Psalm 46,11"],
+
+      ["Wer unter dem Schirm des Höchsten sitzt und unter dem Schatten des Allmächtigen bleibt.", "Psalm 91,1"],
+
+      ["Er wird dich mit seinen Fittichen decken, und Zuflucht wirst du haben unter seinen Flügeln.", "Psalm 91,4"],
+
+      ["Denn er hat seinen Engeln befohlen, dich zu behüten auf allen deinen Wegen.", "Psalm 91,11"],
+
+      ["Ich will den HERRN loben allezeit; sein Lob soll immerdar in meinem Munde sein.", "Psalm 34,2"],
+
+      ["Der HERR hört, wenn ich ihn anrufe.", "Psalm 4,4"],
+
+      ["Du tust mir kund den Weg zum Leben.", "Psalm 16,11"],
+
+      ["Du stellst meine Füße auf weiten Raum.", "Psalm 31,9"],
+
+      ["Der HERR richtet die Gebeugten auf.", "Psalm 146,8"],
+
+      ["Er heilt, die zerbrochenen Herzens sind, und verbindet ihre Wunden.", "Psalm 147,3"],
+
+      ["Wir wissen aber, dass denen, die Gott lieben, alle Dinge zum Besten dienen.", "Römer 8,28"],
+
+      ["Ist Gott für uns, wer kann wider uns sein?", "Römer 8,31"],
+
+      ["Nichts kann uns scheiden von der Liebe Gottes.", "Römer 8,39"],
+
+      ["Freut euch in der Hoffnung, seid geduldig in Trübsal, beharrlich im Gebet.", "Römer 12,12"],
+
+      ["Die Liebe hört niemals auf.", "1. Korinther 13,8"],
+
+      ["Alles, was ihr tut, geschehe in Liebe.", "1. Korinther 16,14"],
+
+      ["Seid allezeit fröhlich, betet ohne Unterlass, seid dankbar in allen Dingen.", "1. Thessalonicher 5,16-18"],
+
+      ["Der Gott des Friedens heilige euch durch und durch.", "1. Thessalonicher 5,23"],
+
+      ["Der Herr aber richte eure Herzen aus auf die Liebe Gottes und auf das Warten auf Christus.", "2. Thessalonicher 3,5"],
+
+      ["Gott hat uns nicht gegeben den Geist der Furcht, sondern der Kraft und der Liebe und der Besonnenheit.", "2. Timotheus 1,7"],
+
+      ["Alle eure Dinge lasst in der Liebe geschehen.", "1. Korinther 16,14"],
+
+      ["Lasst uns aber Gutes tun und nicht müde werden; denn zu seiner Zeit werden wir auch ernten.", "Galater 6,9"],
+
+      ["Einer trage des andern Last, so werdet ihr das Gesetz Christi erfüllen.", "Galater 6,2"],
+
+      ["Seid freundlich und herzlich zueinander und vergebt einer dem andern.", "Epheser 4,32"],
+
+      ["Seid aber untereinander freundlich und herzlich und vergebt einer dem andern.", "Epheser 4,32"],
+
+      ["Lasst das Wort Christi reichlich unter euch wohnen.", "Kolosser 3,16"],
+
+      ["Alles, was ihr tut, das tut von Herzen für den Herrn.", "Kolosser 3,23"],
+
+      ["Der Friede Christi regiere in euren Herzen.", "Kolosser 3,15"],
+
+      ["Sorgt euch um nichts, sondern in allen Dingen lasst eure Bitten in Gebet und Flehen mit Danksagung vor Gott kundwerden.", "Philipper 4,6"],
+
+      ["Und der Friede Gottes, der höher ist als alle Vernunft, wird eure Herzen und Sinne bewahren.", "Philipper 4,7"],
+
+      ["Freuet euch in dem Herrn allewege!", "Philipper 4,4"],
+
+      ["Der Herr ist nahe.", "Philipper 4,5"],
+
+      ["Mein Gott aber wird all eurem Mangel abhelfen nach seinem Reichtum in Herrlichkeit in Christus Jesus.", "Philipper 4,19"],
+
+      ["Ich lasse dich nicht fallen und verlasse dich nicht.", "Hebräer 13,5"],
+
+      ["Jesus Christus ist derselbe gestern und heute und in Ewigkeit.", "Hebräer 13,8"],
+
+      ["Lasst uns aufsehen zu Jesus, dem Anfänger und Vollender des Glaubens.", "Hebräer 12,2"],
+
+      ["Lasst uns festhalten an dem Bekenntnis der Hoffnung und nicht wanken; denn er ist treu, der sie verheißen hat.", "Hebräer 10,23"],
+
+      ["Naht euch zu Gott, so naht er sich zu euch.", "Jakobus 4,8"],
+
+      ["Alle gute Gabe und alle vollkommene Gabe kommt von oben herab.", "Jakobus 1,17"],
+
+      ["Seid aber Täter des Wortes und nicht Hörer allein.", "Jakobus 1,22"],
+
+      ["Werft alle eure Sorge auf ihn; denn er sorgt für euch.", "1. Petrus 5,7"],
+
+      ["Der Gott aller Gnade aber, der euch berufen hat zu seiner ewigen Herrlichkeit in Christus Jesus, der wird euch aufrichten, stärken, kräftigen, gründen.", "1. Petrus 5,10"],
+
+      ["Lasst uns lieben, denn er hat uns zuerst geliebt.", "1. Johannes 4,19"],
+
+      ["Gott ist Liebe; und wer in der Liebe bleibt, der bleibt in Gott und Gott in ihm.", "1. Johannes 4,16"],
+
+      ["Fürchte dich nicht! Ich bin der Erste und der Letzte.", "Offenbarung 1,17"],
+
+      ["Siehe, ich mache alles neu!", "Offenbarung 21,5"]
+
     ];
 
     function neuerVers() {
       const zufall = Math.floor(Math.random() * verse.length);
-      document.getElementById("vers").textContent = verse[zufall];
+
+      document.getElementById("vers").textContent = "„" + verse[zufall][0] + "“";
+      document.getElementById("stelle").textContent = verse[zufall][1];
     }
 
     neuerVers();
+
   </script>
+
 </body>
 </html>
