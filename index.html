@@ -36,6 +36,27 @@
     .stelle {
       font-size: 20px;
       font-weight: bold;
+      margin-bottom: 30px;
+    }
+
+    button {
+      background: #8b7355;
+      color: white;
+      border: none;
+      padding: 14px 24px;
+      border-radius: 12px;
+      font-family: Georgia, serif;
+      font-size: 17px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+
+    button:hover {
+      opacity: 0.85;
+    }
+
+    button:active {
+      transform: scale(0.97);
     }
   </style>
 </head>
@@ -43,8 +64,17 @@
 <body>
 
   <div class="box">
-    <div class="vers" id="vers">Dein Bibelvers wird geladen ...</div>
+
+    <div class="vers" id="vers">
+      Dein Bibelvers wird geladen ...
+    </div>
+
     <div class="stelle" id="stelle"></div>
+
+    <button onclick="neuenVersWaehlen()">
+      ✨ Neuen Bibelvers wählen
+    </button>
+
   </div>
 
   <script>
@@ -204,25 +234,31 @@
     ];
 
 
-    // Zufälligen Vers auswählen
-    let neuerVers;
+    function neuenVersWaehlen() {
 
-    // Letzten Vers aus dem Speicher holen
-    const letzterVers = localStorage.getItem("letzterVers");
+      const letzterVers = localStorage.getItem("letzterVers");
 
-    do {
-      neuerVers = Math.floor(Math.random() * verse.length);
-    } while (verse.length > 1 && neuerVers == letzterVers);
+      let neuerVers;
 
-    // Diesen Vers speichern
-    localStorage.setItem("letzterVers", neuerVers);
+      do {
+        neuerVers = Math.floor(Math.random() * verse.length);
+      } while (
+        verse.length > 1 &&
+        neuerVers == letzterVers
+      );
 
-    // Vers anzeigen
-    document.getElementById("vers").textContent =
-      "„" + verse[neuerVers].text + "“";
+      localStorage.setItem("letzterVers", neuerVers);
 
-    document.getElementById("stelle").textContent =
-      verse[neuerVers].stelle;
+      document.getElementById("vers").textContent =
+        "„" + verse[neuerVers].text + "“";
+
+      document.getElementById("stelle").textContent =
+        verse[neuerVers].stelle;
+    }
+
+
+    // Beim Öffnen automatisch einen Vers anzeigen
+    neuenVersWaehlen();
 
   </script>
 
